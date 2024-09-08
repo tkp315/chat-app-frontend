@@ -5,9 +5,5 @@ import daisyui from 'daisyui'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(),daisyui],
-  build: {
-    rollupOptions: {
-      external: ['socket.io-client','axios']
-    }
-  }
+ 
 })
