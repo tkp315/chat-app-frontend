@@ -45,6 +45,7 @@ const[time, setTime]=useState(null);
 const[date,setDate]=useState(null);
 const newDate = new  Date(`${date}T${time}`);
 const timeToSend = newDate.getTime()
+console.log(newDate)
 
 //*************** FUNCTIONS ******************/ 
 
@@ -53,8 +54,8 @@ const sendMessage = async () => {
   const res = await dispatch(newMessage({ chatId, content,timeToSend }));
   const result = res.payload?.data?.newlyCreatedMessage;
   if (res.payload?.statusCode === 200) {
-      socket.emit('new_message', result);
-   
+      socket?.emit('new_message', result);
+      
     
       setText(''); // Clear input after sending
       setTime(null);
@@ -115,22 +116,21 @@ useEffect(() => {
 
 useEffect(() => {
   const handleReceiveMessage = (newMessageReceived) => {
-      if (!selectedChatCompare.current._id || newMessageReceived?.chat?._id !== selectedChatCompare.current._id) {
-         playNotification()
-        setNotification((prevMessages) => [...prevMessages, newMessageReceived]);// Notification handling can be added here
-      } else {
-        console.log("newMessageReceived",newMessageReceived)
-        // playMessageSound()
-          setRealTimeMessages((prevMessages) => [...prevMessages, newMessageReceived]);
-      }
+    if (!selectedChatCompare.current || !selectedChatCompare.current._id || newMessageReceived?.chat?._id !== selectedChatCompare.current._id) {
+      playNotification();
+      setNotification((prevMessages) => [...prevMessages, newMessageReceived]);
+    } else {
+      playMessageSound()
+      setRealTimeMessages((prevMessages) => [...prevMessages, newMessageReceived]);
+    }
   };
 
   socket?.on('receive_message', handleReceiveMessage);
 
   return () => {
-      socket?.off('receive_message', handleReceiveMessage);
+    socket?.off('receive_message', handleReceiveMessage);
   };
-}, [socket]);
+}, [socket, selectedChatCompare.current]);
 
 
 // 3. GETTING STATUS OF MESSAGE

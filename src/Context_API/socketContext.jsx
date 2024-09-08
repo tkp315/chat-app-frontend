@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { io } from "socket.io-client";
+import {io} from 'socket.io-client'
 
 const SocketContext = createContext(null);
 
@@ -14,6 +14,8 @@ export const SocketProvider = ({ children }) => {
     useEffect(() => {
        
         const newSocket = io('https://chat-app-1-vrhe.onrender.com');
+        // const newSocket =io(`http://localhost:5000`)
+    console.log(newSocket)
       
         newSocket.on('connect', () => {
             console.log('connected with socket id', newSocket.id);
