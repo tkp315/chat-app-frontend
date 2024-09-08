@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(),daisyui],
   build: {
     rollupOptions: {
-      external: ['socket.io-client']
+      external: ['socket.io-client','axios']
     }
   }
 })
