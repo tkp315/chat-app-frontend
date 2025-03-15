@@ -12,7 +12,7 @@ export default function Modal({heading, isSearch, arr, extra, addToChat}) {
 
   function handleChat(eid) {
     console.log("Chat ID:", eid);
-    addToChat(eid);  // Directly pass the `eid` to `addToChat`
+    addToChat(eid);  
   }
 // set Debounced query 
 const[query,setQuery]=useState('');

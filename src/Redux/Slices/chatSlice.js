@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import toast from "react-hot-toast"
 import { axiosInstance } from "../../assets/config/axios"
-import { act } from "react"
 
 const initialState = {
     chatsArr:JSON.parse(localStorage.getItem('chatsArr'))||[],

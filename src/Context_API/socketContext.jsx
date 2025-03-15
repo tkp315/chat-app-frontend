@@ -15,7 +15,7 @@ export const SocketProvider = ({ children }) => {
        
         const newSocket = io('https://chat-app-1-vrhe.onrender.com');
         // const newSocket =io(`http://localhost:5000`)
-    console.log(newSocket)
+        console.log(newSocket)
       
         newSocket.on('connect', () => {
             console.log('connected with socket id', newSocket.id);

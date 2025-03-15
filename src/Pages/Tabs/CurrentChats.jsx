@@ -12,7 +12,9 @@ import Loader from "../../components/Loader";
 export default function CurrentChats() {
   const dispatch = useDispatch();
   const socket = useSocket();
-  
+  const user =useSelector((state)=>state.user)
+  const currentUserId = user.userData._id
+
   const { chatsArr, searchCurrentChats, activeChat } = useSelector((state) => state.chat);
   const { notification, setNotification } = useSocket(); // Access notification from socket context
 
@@ -63,14 +65,17 @@ export default function CurrentChats() {
   // Memoize notification items to prevent unnecessary re-renders
   const notificationItems = 
     notification.length > 0 
-      ? notification.map((e, idx) => (
-        <li key={idx} className="p-2" onClick={() => handleNotification(e.chat._id)}>
+      ?notification.map((e, idx) => (
+        <li key={idx} className="p-2" onClick={() => handleNotification(e?.chat?._id)}>
           <span>
-            new Msg
-            <button className="font-semibold text-cyan-500">{e.chat?.chatName}</button>
+            New Msg
+            <button className="font-semibold text-cyan-500">
+              {e?.chat?.isGroupChat ? e?.chat?.chatName : e?.chat?.chatNames?.[currentUserId]}
+            </button>
           </span>
         </li>
       ))
+      
       : <span className="text-center">No Notification</span>
   
 
@@ -125,7 +130,7 @@ export default function CurrentChats() {
           {(debouncedQuery ? searchCurrentChats : chatsArr)?.map((item, idx) => (
             <Card
               key={idx}
-              name={` ${item.isGroupChat ? item.chatName : item.chatName}`}
+              name={` ${item.isGroupChat ? item?.chatName : item?.chatNames[currentUserId]}`}
               email={item.email}
               latestMessage={` ${item?.latestMessage?.content || "Welcome to the app"}`}
               sender={item?.latestMessage?.sender?.fullName}

@@ -33,7 +33,7 @@ export default function MenuOptions() {
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
-        Click
+        <CiMenuKebab></CiMenuKebab>
       </div>
       <ul
         tabIndex={0}

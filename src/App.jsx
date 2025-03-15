@@ -10,6 +10,7 @@ import Login from './Pages/Auth/Login'
 import ResetPassword from './Pages/Auth/ResetPassword'
 import ResetToken from './Pages/Auth/ResetToken'
 import { useSocket } from './Context_API/socketContext'
+import VideoCalling from './Pages/Tabs/VideoCalling'
 
 
 
@@ -29,6 +30,8 @@ function App() {
       <Route element={<Login></Login>} path='/login'></Route>
       <Route element={<ResetToken></ResetToken>} path='send-reset-token'></Route>
       <Route element={<ResetPassword></ResetPassword>} path='/reset-password'></Route>
+      <Route element={<VideoCalling></VideoCalling>} path='/video-call'></Route>
+
     </Routes> 
     {/* <NewGroup></NewGroup> */}
    

@@ -8,6 +8,7 @@ import { newGroup, searching } from "../../Redux/Slices/chatSlice";
 import { ActiveTab } from "../../assets/Functions/active";
 import { Form } from "react-router-dom";
 import { modalActivation } from "../../Redux/Slices/modalSlice";
+import { axiosInstance } from "../../assets/config/axios";
 
 
 function NewGroup() {
@@ -42,6 +43,15 @@ async function handleSearch(){
 }
 
 useEffect(()=>{handleSearch()},[debouncedQuery,dispatch])
+
+const [userList,setUserList] = useState([])
+   const allUsers = async()=>{
+     const res = await axiosInstance.get('/user/fetch-all-users')
+     console.log(res)
+     setUserList(res?.data?.data)
+   }
+   useEffect(()=>{allUsers()},[])
+   console.log("juser list:::::::",userList)
 
 const searchResults = useSelector((state)=>state.chat).searchResults;
 console.log("Use Selector result",searchResults)
@@ -128,9 +138,9 @@ async function handleSubmit(e){
     }
 }
 // closing
-const friendList = useSelector((state)=>state.user).friendData;
-console.log(friendList);
-const displayChats = searchResult.length>0?searchResult:friendList;
+// const friendList = useSelector((state)=>state.user).friendData;
+// console.log(friendList);
+const displayChats = searchResult.length>0?searchResult:userList;
 
 
   return (

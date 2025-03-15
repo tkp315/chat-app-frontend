@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import MenuOptions from '../Chat_Windows/MenuOptions.jsx';
+import Call from '../Chat_Windows/Call.jsx';
 function DisplayingChats() {
     const chat = useSelector((state) => state.chat.activeChat);
     const user = useSelector((state) => state.user.userData);
@@ -201,10 +202,7 @@ console.log(isOnline)
                     </div>
                 </div>
                 <div className="flex gap-7">
-                    <div className="flex gap-1 p-2 items-center mr-3 bg-slate-400 rounded-md">
-                        <FiPhoneCall className="text-2xl" />
-                        <IoMdVideocam className="text-2xl w-full" />
-                    </div>
+                    <Call></Call>
                    <MenuOptions></MenuOptions>
                 </div>
             </div>
